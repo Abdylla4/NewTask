@@ -1,10 +1,11 @@
+import 'package:agsam/cubit/plan_cubit.dart';
 import 'package:agsam/view_model/widgets/customm_textfield.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 // ignore: must_be_immutable
 class Programmlanguages extends StatelessWidget {
   TextEditingController programLanguageController = TextEditingController();
-
   Programmlanguages({super.key});
 
   @override
@@ -40,8 +41,22 @@ class Programmlanguages extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    TextButton(onPressed: () {}, child: Text('Add')),
-                    TextButton(onPressed: () {}, child: Text('Cancel')),
+                    TextButton(
+                      onPressed: () {
+                        context.read<PlanCubit>().addPlan(
+                          programLanguageController.text,
+                        );
+                        programLanguageController.clear();
+                        Navigator.pop(context);
+                      },
+                      child: Text('Add'),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: Text('Cancel'),
+                    ),
                   ],
                 ),
               ],
@@ -57,11 +72,33 @@ class Programmlanguages extends StatelessWidget {
         ),
         centerTitle: true,
       ),
-      body: Center(
-        child: Text(
-          ' No Praogramma languages yet',
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-        ),
+      body: BlocBuilder<PlanCubit, PlanState>(
+        builder: (context, state) {
+          if (state is PlanError) {
+            return Text(state.message);
+          }
+          if (state is PlanSuccess) {
+            return ListView.builder(
+              itemCount: state.plans.length,
+              itemBuilder: (context, index) {
+                final plan = state.plans[index];
+                return Card(
+                  child: ListTile(
+                    title: Text(plan.planName),
+                    textColor: Colors.amber,
+                    
+                  ),
+                );
+              },
+            );
+          }
+          return Center(
+            child: Text(
+              ' No Praogramma languages yet',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+          );
+        },
       ),
     );
   }

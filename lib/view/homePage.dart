@@ -1,6 +1,6 @@
-import 'package:agsam/view/newPlanAdd.dart';
-import 'package:agsam/view/workers.dart';
-import 'package:agsam/view/programmLanguages.dart';
+import 'package:agsam/view_model/dashbord/newPlanAdd.dart';
+import 'package:agsam/view_model/dashbord/workers.dart';
+import 'package:agsam/view_model/dashbord/programmLanguages.dart';
 import 'package:flutter/material.dart';
 
 class Homepage extends StatelessWidget {
@@ -85,11 +85,17 @@ class Homepage extends StatelessWidget {
         //   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
         // ),
       ),
-      body: Center(
-        child: Text(
-          'No added the Program yet',
-          style: TextStyle(fontSize: 23, fontWeight: FontWeight.bold),
-        ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Image(image: AssetImage('assets/Lott/Task.gif')),
+          Center(
+            child: Text(
+              'No added the Program yet',
+              style: TextStyle(fontSize: 23, fontWeight: FontWeight.bold),
+            ),
+          ),
+        ],
       ),
     );
   }

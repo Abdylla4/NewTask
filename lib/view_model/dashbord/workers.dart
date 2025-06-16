@@ -46,7 +46,12 @@ class Workers extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     TextButton(onPressed: () {}, child: Text('Add')),
-                    TextButton(onPressed: () {}, child: Text('Cancel')),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: Text('Cancel'),
+                    ),
                   ],
                 ),
               ],
